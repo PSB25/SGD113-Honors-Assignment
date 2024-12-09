@@ -1,27 +1,52 @@
-# This program is a simple number guessing game.
-# It was developed with assistance from MS Copilot,
-# which suggested code snippets and improved the workflow.
+// This program is a simple number guessing game.
+// It was developed with assistance from MS Copilot,
+// which suggested code snippets and improved the workflow.
 
-import random
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
-def main():
-    print("Welcome to the Number Guessing Game!")
-    number = random.randint(1, 100)
-    attempts = 0
+using namespace std;
 
-    while True:
-        try:
-            guess = int(input("Guess a number between 1 and 100: "))
-            attempts += 1
-            if guess < number:
-                print("Too low!")
-            elif guess > number:
-                print("Too high!")
-            else:
-                print(f"Congratulations! You guessed the number in {attempts} attempts.")
-                break
-        except ValueError:
-            print("Please enter a valid number.")
+void playGame() {
+    // Initialize random seed
+    srand(static_cast<unsigned>(time(0)));
+    int number = rand() % 100 + 1; // Random number between 1 and 100
+    int guess = 0;
+    int attempts = 0;
 
-if __name__ == "__main__":
-    main()
+    cout << "Welcome to the Number Guessing Game!" << endl;
+    cout << "I have chosen a number between 1 and 100. Try to guess it!" << endl;
+
+    // Game loop
+    while (true) {
+        cout << "Enter your guess: ";
+        cin >> guess;
+
+        // Check for valid input
+        if (cin.fail()) {
+            cin.clear();              // Clear error flag
+            cin.ignore(1000, '\n');   // Discard invalid input
+            cout << "Please enter a valid number!" << endl;
+            continue;
+        }
+
+        attempts++;
+
+        if (guess < number) {
+            cout << "Too low!" << endl;
+        } else if (guess > number) {
+            cout << "Too high!" << endl;
+        } else {
+            cout << "Congratulations! You guessed the number in " << attempts << " attempts." << endl;
+            break;
+        }
+    }
+}
+
+int main() {
+    playGame();
+
+    cout << "Thank you for playing!" << endl;
+    return 0;
+}
