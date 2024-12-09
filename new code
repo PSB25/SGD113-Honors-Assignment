@@ -1,0 +1,44 @@
+// This program is a simple number guessing game.
+// It was developed with assistance from MS Copilot,
+// which suggested code snippets and improved the workflow.
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+void playGame() {
+    std::cout << "Welcome to the Number Guessing Game!" << std::endl;
+    std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed for random number generator
+    int number = std::rand() % 100 + 1; // Random number between 1 and 100
+    int attempts = 0;
+    int guess = 0;
+
+    while (true) {
+        std::cout << "Guess a number between 1 and 100: ";
+        std::cin >> guess;
+
+        // Validate input
+        if (std::cin.fail()) {
+            std::cin.clear(); // Clear the error flag
+            std::cin.ignore(10000, '\n'); // Discard invalid input
+            std::cout << "Please enter a valid number." << std::endl;
+            continue;
+        }
+
+        attempts++;
+        
+        if (guess < number) {
+            std::cout << "Too low!" << std::endl;
+        } else if (guess > number) {
+            std::cout << "Too high!" << std::endl;
+        } else {
+            std::cout << "Congratulations! You guessed the number in " << attempts << " attempts." << std::endl;
+            break;
+        }
+    }
+}
+
+int main() {
+    playGame();
+    return 0;
+}
